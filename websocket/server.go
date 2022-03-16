@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/eyacquah/react-go-pong-server/pong"
 	"github.com/gorilla/websocket"
 )
 
@@ -18,6 +19,9 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func reader(conn *websocket.Conn) {
+	g := &pong.Game{}
+	g.Init()
+
 	for {
 		messageType, p, err := conn.ReadMessage()
 
@@ -26,9 +30,11 @@ func reader(conn *websocket.Conn) {
 			return
 		}
 
+		input := string(p)
+
 		log.Println("From Client",string(p))
 
-		msg := decodeMessage(p)
+		msg := decodeMessage(input, g)
 
 		if err := conn.WriteMessage(messageType, msg); err != nil {
 			log.Println(err)
@@ -44,12 +50,17 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
 	upgrader.CheckOrigin = func(r *http.Request) bool {return true}
 
 	ws, err := upgrader.Upgrade(w, r, nil)
+
+
 	
 	if err != nil {
 		log.Println(err)
 	}
 
 	log.Println("Client connected successfully")
+
+	
+
 	reader(ws)
 }
 

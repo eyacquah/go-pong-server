@@ -2,9 +2,9 @@ package pong
 
 type Ball struct {
 	Position
-	Radius    float32
-	XVelocity float32
-	YVelocity float32
+	Radius    float32		`json:"radius"`
+	XVelocity float32		`json:"xVelocity"`
+	YVelocity float32		`json:"yVelocity"`
 }
 
 const (

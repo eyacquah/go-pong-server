@@ -1,10 +1,15 @@
 package pong
 
+import (
+	"fmt"
+	"strings"
+)
+
 type Game struct {
-	*Ball
-	Player1  *Paddle
-	Player2  *Paddle
-	MaxScore int
+	Ball		*Ball		`json:"ball"`
+	Player1		*Paddle		`json:"player1"`
+	Player2		*Paddle		`json:"player2"`
+	MaxScore	int			`json:"maxScore"`
 }
 
 const (
@@ -13,43 +18,56 @@ const (
 	speedUpdateCount = 6
 	speedIncrement   = 0.5
 
-	ScreenWidth = 600
+	ScreenWidth  = 600
 	ScreenHeight = 600
 )
 
-func (g *Game) init() {
-	g.MaxScore = 10
+func (g *Game) Init() {
+	fmt.Println("INITIALIZED GAME!!")
+		g.MaxScore = 10
 
 	g.Player1 = &Paddle{
 		Position: Position{
-			X: 10,
-			Y: 10,
+			X: InitPaddleShift,
+			Y: ScreenHeight / 2 - 35,
 		},
-		Score: 0,
-		Speed: initPaddleSpeed,
-		Width: InitPaddleWidth,
+		Score:  0,
+		Speed:  initPaddleSpeed,
+		Width:  InitPaddleWidth,
 		Height: InitPaddleHeight,
 	}
 
 	g.Player2 = &Paddle{
 		Position: Position{
-			X: 20,
-			Y: 20,
+			X: ScreenWidth - InitPaddleShift,
+			Y: ScreenHeight / 2 - 35,
 		},
-		Score: 0,
-		Speed: initPaddleSpeed,
-		Width: InitPaddleWidth,
+		Score:  0,
+		Speed:  initPaddleSpeed,
+		Width:  InitPaddleWidth,
 		Height: InitPaddleHeight,
 	}
 
 	g.Ball = &Ball{
 		Position: Position{
-			X: 30,
-			Y: 30,
+			X: ScreenWidth / 2,
+			Y: ScreenHeight / 2,
 		},
 
-		Radius: InitBallRadius,
+		Radius:    InitBallRadius,
 		XVelocity: initBallVelocity,
 		YVelocity: initBallVelocity,
 	}
+}
+
+func (g *Game) UpdatePads(input string) {
+	if strings.Contains(input, "P1") {
+		g.Player1.Update(input)
+	} else if strings.Contains(input, "P2") {
+		g.Player2.Update(input)
+	}
+}
+
+func (g *Game) UpdateBall() {
+	g.Ball.Update(g.Player1, g.Player2)
 }
