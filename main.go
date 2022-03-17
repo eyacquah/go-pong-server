@@ -1,17 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/eyacquah/react-go-pong-server/websocket"
 )
 
 func main() {
-	fmt.Println("React Go Pong Server Is Live!")
+	
+	// [START setting_port]
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	
 	
 	websocket.SetupRoutes()
-	log.Fatal(http.ListenAndServe(":8080", nil))
-
+	
+	log.Printf("React Go Pong Server Is Live on port %s!", port)
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }
