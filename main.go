@@ -8,12 +8,6 @@ import (
 	"github.com/eyacquah/react-go-pong-server/websocket"
 )
 
-
-const (
-	windowWidth = 600
-	windowHeight = 600
-)
-
 func main() {
 	fmt.Println("React Go Pong Server Is Live!")
 	

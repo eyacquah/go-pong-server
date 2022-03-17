@@ -20,7 +20,6 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 
 func reader(conn *websocket.Conn) {
 	g := &pong.Game{}
-	g.Init()
 
 	for {
 		messageType, p, err := conn.ReadMessage()
@@ -31,8 +30,7 @@ func reader(conn *websocket.Conn) {
 		}
 
 		input := string(p)
-
-		log.Println("From Client",string(p))
+		// log.Println("From Client",string(p))
 
 		msg := decodeMessage(input, g)
 
@@ -50,17 +48,12 @@ func wsEndpoint(w http.ResponseWriter, r *http.Request) {
 	upgrader.CheckOrigin = func(r *http.Request) bool {return true}
 
 	ws, err := upgrader.Upgrade(w, r, nil)
-
-
 	
 	if err != nil {
 		log.Println(err)
 	}
 
 	log.Println("Client connected successfully")
-
-	
-
 	reader(ws)
 }
 

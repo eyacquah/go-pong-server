@@ -1,6 +1,6 @@
 package pong
 
 type Position struct {
-	X float32 `json:"x"`
-	Y float32 `json:"y"`
+	X int `json:"x"`
+	Y int `json:"y"`
 }

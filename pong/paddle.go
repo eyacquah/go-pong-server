@@ -5,15 +5,15 @@ import "strings"
 type Paddle struct {
 	Position
 	Score  int			`json:"score"`
-	Speed  float32		`json:"speed"`
+	Speed  int		`json:"speed"`
 	Width  int			`json:"width"`
 	Height int			`json:"height"`
 }
 
 const (
-	InitPaddleWidth  = 15
-	InitPaddleHeight = 70
-	InitPaddleShift = 20
+	InitPaddleWidth  = 10
+	InitPaddleHeight = 100
+	InitPaddleShift = 10
 )
 
 func (p *Paddle) Update(input string) {
@@ -34,9 +34,9 @@ func (p *Paddle) Update(input string) {
 	if p.Y < 0 {
 		p.Y = 0
 	}
-
+	
 	// Bottom wall
-	if p.Y + float32(p.Height) > ScreenHeight {
-		p.Y = float32(ScreenHeight - p.Height)
+	if p.Y + p.Height > ScreenHeight {
+		p.Y = ScreenHeight - p.Height
 	}
 }

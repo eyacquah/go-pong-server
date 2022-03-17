@@ -10,17 +10,16 @@ import (
 
 func getJSON(g *pong.Game) []byte {
 	str, err := json.Marshal(g)
-
 	if err != nil {
 		log.Println(err)
 	}
-	
+
 	return str
 }
 
 
 func decodeMessage(input string, g *pong.Game) []byte {
-
+	
 	switch input {
 	case "INIT":
 		g.Init()
@@ -33,17 +32,9 @@ func decodeMessage(input string, g *pong.Game) []byte {
 			g.UpdatePads(input)
 			g.UpdateBall()
 		}
-		
 	}
-
-	// fmt.Println(g.Ball, g.Player1, g.Player2)
-	// fmt.Println("INPUT",input)
-
 	str := getJSON(g)
-	
 	out := []byte(str)
-	// fmt.Println("OUT-STR", string(out))
-	
 
 	return out
 }

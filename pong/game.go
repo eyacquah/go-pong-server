@@ -18,8 +18,8 @@ const (
 	speedUpdateCount = 6
 	speedIncrement   = 0.5
 
-	ScreenWidth  = 600
-	ScreenHeight = 600
+	ScreenWidth  = 900
+	ScreenHeight = 500
 )
 
 func (g *Game) Init() {
@@ -39,7 +39,7 @@ func (g *Game) Init() {
 
 	g.Player2 = &Paddle{
 		Position: Position{
-			X: ScreenWidth - InitPaddleShift,
+			X: ScreenWidth - ( InitPaddleShift * 2),
 			Y: ScreenHeight / 2 - 35,
 		},
 		Score:  0,
