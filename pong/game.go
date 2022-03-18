@@ -15,11 +15,13 @@ type Game struct {
 const (
 	initBallVelocity = 5.0
 	initPaddleSpeed  = 10.0
-	speedUpdateCount = 6
-	speedIncrement   = 0.5
+
+
 
 	ScreenWidth  = 900
 	ScreenHeight = 500
+
+	InitMaxScore = 10
 )
 
 func (g *Game) Init() {
@@ -35,6 +37,7 @@ func (g *Game) Init() {
 		Speed:  initPaddleSpeed,
 		Width:  InitPaddleWidth,
 		Height: InitPaddleHeight,
+		HasWon: false,
 	}
 
 	g.Player2 = &Paddle{
@@ -46,11 +49,12 @@ func (g *Game) Init() {
 		Speed:  initPaddleSpeed,
 		Width:  InitPaddleWidth,
 		Height: InitPaddleHeight,
+		HasWon: false,
 	}
 
 	g.Ball = &Ball{
 		Position: Position{
-			X: ScreenWidth / 2,
+			X: InitPaddleShift + InitBallRadius,
 			Y: ScreenHeight / 2,
 		},
 
@@ -68,6 +72,33 @@ func (g *Game) UpdatePads(input string) {
 	}
 }
 
-func (g *Game) UpdateBall() {
-	g.Ball.Update(g.Player1, g.Player2)
+
+// Inputs
+// INIT, UPDATE, RESET
+
+func (g *Game) Update(input string) {
+	switch input {
+	case "INIT":
+		g.Init()
+	
+	case "UPDATE":
+		g.Ball.Update(g.Player1, g.Player2)
+
+		if g.Player1.Score >= InitMaxScore {
+			g.Player1.HasWon = true
+			
+		} else if g.Player2.Score >= InitMaxScore {
+			g.Player2.HasWon = true
+		
+		}
+
+	default:
+		// Update Pads
+		if strings.Contains(input, "P1") {
+			g.Player1.Update(input)
+		} else if strings.Contains(input, "P2") {
+			g.Player2.Update(input)
+		
+		}		
+	}
 }

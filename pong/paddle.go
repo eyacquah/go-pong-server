@@ -5,14 +5,15 @@ import "strings"
 type Paddle struct {
 	Position
 	Score  int			`json:"score"`
-	Speed  int		`json:"speed"`
+	Speed  int			`json:"speed"`
 	Width  int			`json:"width"`
 	Height int			`json:"height"`
+	HasWon bool			`json:"hasWon"`
 }
 
 const (
 	InitPaddleWidth  = 10
-	InitPaddleHeight = 100
+	InitPaddleHeight = 70
 	InitPaddleShift = 10
 )
 
