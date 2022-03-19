@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/eyacquah/react-go-pong-server/pong"
+	"github.com/eyacquah/go-pong-server/pong"
 	"github.com/gorilla/websocket"
 )
 

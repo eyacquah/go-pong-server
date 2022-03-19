@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/eyacquah/react-go-pong-server/websocket"
+	"github.com/eyacquah/go-pong-server/websocket"
 )
 
 func main() {
@@ -13,6 +13,7 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+	
 
 	websocket.SetupRoutes()
 	

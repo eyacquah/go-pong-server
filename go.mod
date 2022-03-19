@@ -1,4 +1,4 @@
-module github.com/eyacquah/react-go-pong-server
+module github.com/eyacquah/go-pong-server
 
 go 1.17
 
